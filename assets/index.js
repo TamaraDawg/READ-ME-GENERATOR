@@ -3,7 +3,7 @@ const inquirer = require('inquirer');
 
 console.log('gen is running');
 
-// TODO: Create an array of questions for user input
+// array of questions for user input
 const questions = [
 {
     type: 'input',
@@ -39,11 +39,16 @@ const questions = [
     type: 'list',
     name: 'license',
     message: 'What is your License?',
+    choices: ['MIT', 'ISC', 'GNUPLv3'],
+    filter(val) {
+        return val.toLowerCase();
+    }
 },
 {
     type: 'input',
     name: 'username',
     message: 'What is your Github username?',
+
 },
 {
     type: 'input',
@@ -52,6 +57,21 @@ const questions = [
 },
 
 ];
+
+//query function, uses inquirer, prompts questions in order. Collects answers
+async function runQuery() {
+    return inquirer.prompt(questions)
+    .then((answers)=>{
+        console.log(answers)
+        return answers 
+    })
+    //catcg block in case of error
+    .catch((error)=>{
+        console.log('error');
+    });
+}
+
+runQuery();
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {}
